@@ -17,7 +17,6 @@ package cmd
 
 import (
 	"fmt"
-	"math"
 	"os"
 	"sort"
 	"time"
@@ -47,7 +46,7 @@ func sendReq(cmd *cobra.Command) {
 	delay, _ := cmd.Flags().GetInt("delay")
 
 	start := time.Now()
-	perc95 := 0.95
+	// perc95 := 0.95
 
 	fmt.Println("Firing off requests, please hold...")
 	req, responseTimes := request.Fire(target, uri, port, count, insecure, delay)
@@ -60,8 +59,8 @@ func sendReq(cmd *cobra.Command) {
 	sort.Ints(responseTimes)
 	fastestResp := responseTimes[0]
 	slowestResp := responseTimes[lastIndex]
-	multiplier := math.Round(float64(len(responseTimes)) * perc95)
-	percentile95th := responseTimes[int(multiplier)]
+	// multiplier := math.Round(float64(len(responseTimes)) * perc95)
+	// percentile95th := responseTimes[int(multiplier)]
 	resultString := fmt.Sprintf(`
 ================================
 Final test results:
@@ -74,8 +73,8 @@ Execution time: %dms
 Mean request time: %dms
 Fastest Response: %dms
 Slowest Response: %dms
-95th: %dms
-================================`, count, req.TwoHundreds, req.ThreeHundreds, req.FourHundreds, elapsed.Milliseconds(), meanTime, fastestResp, slowestResp, percentile95th)
+95th: ms
+================================`, count, req.TwoHundreds, req.ThreeHundreds, req.FourHundreds, elapsed.Milliseconds(), meanTime, fastestResp, slowestResp)
 
 	if write {
 		f, err := os.Create("/tmp/test-report.txt")
