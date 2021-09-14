@@ -15,9 +15,11 @@ Grab the loadout binary from the bin/ directory, or compile it from source yours
 ## Usage
 
 Usage:
+```
   loadout [command]
 
 Available Commands:
+
   completion  generate the autocompletion script for the specified shell
   help        Help about any command
   send        The command that fires of requests.
@@ -28,7 +30,7 @@ Flags:
   -t, --toggle          Help message for toggle
 
 Use "loadout [command] --help" for more information about a command.
-
+```
 ## Example Usage
 ```
 ./loadout send --count 10 --target www.google.com --uri / --port 443
